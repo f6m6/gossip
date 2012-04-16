@@ -1,8 +1,19 @@
+open Network
+
+type message =
+    Transfer of G.E.t * bool
+  | Fail of G.vertex
+
+type event = 
+    Message of message
+  | VertexStep of G.vertex
+  | Step ;;
+
 type time = int
-type ('a, 'b) event = Fail of 'a | Step of 'a | Transfer of 'b
-type ('a, 'b) queue = ('a, 'b) event PriorityQueue.queue ref
+
+type 'a queue = 'a PriorityQueue.queue ref
       
-let push (time: time) (event: ('a, 'b) event) (queue:('a, 'b) queue) = 
+let push time event queue = 
   let new_queue = PriorityQueue.insert !queue time event in
   queue := new_queue
       

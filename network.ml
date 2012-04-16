@@ -15,13 +15,12 @@ end
 
 module DotOutput = Graphviz.Dot(Display)
 
-
-
-let exists_active g =
-  let p v b = b || Node.active v in
-  G.fold_vertex p g false ;;
-
 let vertices g = 
-G.fold_vertex (fun v acc -> v :: acc) g [] ;;
+  G.fold_vertex (fun v acc -> v :: acc) g [] ;;
 
 let dead_end g v = G.succ g v = []
+
+let edge_length e =
+  let label = G.E.label e in
+  let length = Node.id label in
+  length

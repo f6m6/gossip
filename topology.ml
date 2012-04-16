@@ -14,7 +14,7 @@ let full offset n orig =
       if not (i = j) then
 	let v1 = a.(i) in
 	let v2 = a.(j) in
-	let distance = 0 in
+	let distance = Random.int 1000 in
 	let entry = Node.make_entry distance in
 	let edge = Network.G.E.create v1 entry v2 in
 	Network.G.add_edge_e g edge;
