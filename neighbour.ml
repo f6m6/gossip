@@ -2,7 +2,7 @@ open EventQueue
 open Network
 open Extensions
 
-let name = "gossip"
+let name = "neighbour"
 
 (*
    push a fail message onto the queue if someone
@@ -23,12 +23,23 @@ let just_received v time queue =
   fail count has exceeded failure tolerance
   otherwise I transfer along a random
   outgoing edge and schedule my next vertex step
+  with n neighbours, the probability of choosing
+  the nearest is 1/2 and then the probability of choosing
+  any one of the others is 1/2n (i.e. uniform over the others)
 *)
 let vertex_step g v time queue ft period =
   if (Node.fail_count v < ft) then
     let outgoing_edges = G.succ_e g v in
-    let _ = Random.self_init () in
-    let random_edge = List.random outgoing_edges in
+    let compare_edges e1 e2 = (edge_length e1) - (edge_length e2) in
+    let sorted_edges = List.sort compare_edges outgoing_edges in
+    let shortest_edge = List.hd sorted_edges in
+    let random_edge =
+      let _ = Random.self_init () in
+      if Random.bool ()
+      then shortest_edge
+      else List.random (
+        List.filter (fun x -> not (x = shortest_edge)) outgoing_edges
+      ) in
     let length = edge_length random_edge in
     push
       (time + length)
