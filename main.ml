@@ -37,8 +37,8 @@ let speclist = [
   ("-size", (Set_int graph_size), "set graph size");
   ("-f", (Set_int failure_tolerance), "set gossip failure tolerance");
   ("-fn", (Set_int failure_tolerance_neighbour), "set neighbour failure tolerance");
-("-o", (Set output_mode), "set output mode ");
- ("-avg", (Set_int avg_lim), "set average limit")
+  ("-o", (Set output_mode), "set output mode ");
+  ("-avg", (Set_int avg_lim), "set average limit")
 ]
 
 let main =
@@ -50,11 +50,11 @@ let main =
   let vspn = !vertex_step_period_neighbour in
   let sp = !step_period in
   let o = !output_mode in
-    let g = match !graph_layout with
+  let g = match !graph_layout with
       "full" -> Topology.full 0 !graph_size true
-      | _ -> Topology.full 0 6 true in
+    | _ -> Topology.full 0 6 true in
 (* single run mode *)
-if o then
+  if o then
     let _ =
       if !gossip_flag
       then let _ = GossipSim.run g 0 ft n vsp sp o in ()
@@ -71,9 +71,9 @@ if o then
       if !neighbour_flag
       then let _ = NeighbourSim.run g 0 ftn n vspn sp o in ()
       else () in
-  ()
-else
-(* average mode *)
+    ()
+  else
+    (* average mode *)
     let mean_time = ref 0.0 in
     let mean_traf = ref 0.0 in
     let lim = !avg_lim in

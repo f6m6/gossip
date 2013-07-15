@@ -5,6 +5,7 @@ open Graph
   and built on node and entry from Node module
   it is a functor
 *)
+
 module G = Imperative.Digraph.ConcreteLabeled(Node.Ordered)(Node.FlowEntry)
 
 (* module used to define format of dot output *)
