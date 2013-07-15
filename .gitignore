@@ -12,6 +12,8 @@
 *.ps
 *.gv
 *.dot
+*.dat
 log.txt
 .Rhistory
 _build
+_tags
