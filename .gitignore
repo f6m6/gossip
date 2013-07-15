@@ -8,5 +8,10 @@
 *.cmxs
 *.cmxa
 *.native
+*.out
+*.ps
+*.gv
+*.dot
+log.txt
 .Rhistory
 _build
